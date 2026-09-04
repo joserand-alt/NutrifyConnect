@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.xlsx
+BD/
+Nova pasta/
+dashboard_gerado_copy.html
