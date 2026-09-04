@@ -1,4 +1,4 @@
-name: Atualizar Painel Nutrify Connect
+name: Atualizar Dash_Nutrify
 
 on:
   schedule:

@@ -1,4 +1,4 @@
-# Painel Nutrify Connect · Acompanhamento de Alunos
+# Dash_Nutrify · Acompanhamento de Alunos
 
 Painel interativo e analítico para acompanhamento do progresso, engajamento e retenção dos colaboradores matriculados no programa **Nutrify Connect** (contas `@nutrify.com.br` e `@integralmedica.com`).
 
