@@ -223,5 +223,20 @@
       "sos-antibiotico",
       "origem-academy"
     ]
+  },
+  "limafilipe13@hotmail.com|sos-antibiotico": {
+    "email": "limafilipe13@hotmail.com",
+    "nome": "Filipe",
+    "curso": "S.O.S ANTIBIOTICO",
+    "plataforma": "Academy",
+    "data_inscricao": "2026-09-10 00:00:00",
+    "status": "success",
+    "data_tagueamento": "2026-10-01 17:23:04",
+    "tags_aplicadas": [
+      "matricula-pendente",
+      "curso-livre",
+      "sos-antibiotico",
+      "origem-academy"
+    ]
   }
 }
