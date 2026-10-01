@@ -5777,11 +5777,28 @@ function getMatriculasAuditoriaData() {
             matriculaDate = inscDt;
         }
 
-        // Verificar se o plano menciona safra anterior (ex: Março/26, 18X)
-        const desc = (latestBill.plano || '').toLowerCase();
-        if (desc.includes('março/26') || desc.includes('marco/26') || desc.includes('mar/26')) {
-            const dMar = new Date(2026, 2, 1);
-            if (dMar < matriculaDate) matriculaDate = dMar;
+        // Verificar se o plano ou faturas mencionam safra anterior (ex: Março/26, Setembro/25, etc.)
+        const planTexts = s.bills.map(b => (b.plano || '')).join(' ').toLowerCase();
+        const safraMatch = planTexts.match(/(janeiro|fevereiro|março|marco|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro|jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)[/ -]?(\d{2,4})/i);
+        if (safraMatch) {
+            const mWord = safraMatch[1].toLowerCase();
+            let yNum = parseInt(safraMatch[2], 10);
+            if (yNum < 100) yNum += 2000;
+            const mesMap = {
+                'jan': 0, 'janeiro': 0, 'fev': 1, 'fevereiro': 1,
+                'mar': 2, 'marco': 2, 'março': 2, 'abr': 3, 'abril': 3,
+                'mai': 4, 'maio': 4, 'jun': 5, 'junho': 5,
+                'jul': 6, 'julho': 6, 'ago': 7, 'agosto': 7,
+                'set': 8, 'setembro': 8, 'out': 9, 'outubro': 9,
+                'nov': 10, 'novembro': 10, 'dez': 11, 'dezembro': 11
+            };
+            const mIdx = mesMap[mWord];
+            if (mIdx !== undefined && yNum >= 2020 && yNum <= 2030) {
+                const safraDt = new Date(yNum, mIdx, 1);
+                if (safraDt < matriculaDate) {
+                    matriculaDate = safraDt;
+                }
+            }
         }
 
         const diffMsMatricula = now.getTime() - matriculaDate.getTime();
