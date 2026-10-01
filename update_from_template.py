@@ -10,8 +10,10 @@ def update():
     with open(tmpl_path, "r", encoding="utf-8") as f:
         tmpl = f.read()
         
-    with open(dash_path, "r", encoding="utf-8") as f:
+    source_dash = os.path.join(dash_dir, "dashboard_gerado.html") if os.path.exists(os.path.join(dash_dir, "dashboard_gerado.html")) else dash_path
+    with open(source_dash, "r", encoding="utf-8") as f:
         dash = f.read()
+
         
     # Extract DATA from dashboard_gerado.html
     m = re.search(r"const DATA = (\{.*?\});", dash)
