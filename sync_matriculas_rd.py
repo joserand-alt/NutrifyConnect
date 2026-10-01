@@ -570,8 +570,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Sincronizador Oficial de Matrículas Confirmadas e Pendentes para RD Station")
     parser.add_argument("--dry-run", action="store_true", help="Apenas simula sem enviar para a API do RD")
     parser.add_argument("--days", type=int, default=30, help="Janela de dias para processamento de pendentes (padrão: 30 dias)")
+    parser.add_argument("--force", action="store_true", help="Força execução mesmo com envio suspenso")
     args = parser.parse_args()
     
+    if not args.force:
+        logger.info("⏸️ [ENVIO SUSPENSO] O envio automático de tags e conversões para o RD Station está temporariamente suspenso conforme solicitação.")
+        logger.info("Para forçar a execução manual, utilize o parâmetro --force.")
+        exit(0)
+
     # 1. Sincroniza Matrículas Confirmadas (Pagas)
     sync_pending_matriculas(dry_run=args.dry_run)
     

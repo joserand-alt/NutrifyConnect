@@ -43,9 +43,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas openpyxl requests
 
-      - name: Sincronizar Matriculas e Disparar Tags no RD Station
-        run: |
-          python sync_matriculas_rd.py || echo "Aviso na sincronizacao de tags"
+      # Step de envio de tags e conversoes para o RD Station suspenso
+      # - name: Sincronizar Matriculas e Disparar Tags no RD Station
+      #   run: |
+      #     python sync_matriculas_rd.py || echo "Aviso na sincronizacao de tags"
 
       - name: Executar Gerador e Consultar APIs (Academy, Cativa, Vindi, Asaas, RD)
         run: |
