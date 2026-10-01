@@ -1,0 +1,76 @@
+<header style="background:linear-gradient(180deg, rgba(14, 20, 32, 0.98) 0%, rgba(10, 14, 20, 0.95) 100%); border-bottom:1px solid rgba(0, 240, 255, 0.2); box-shadow:0 2px 16px rgba(0, 0, 0, 0.8); padding:7px 20px; position:relative; width:100%; z-index:101;">
+  <div style="display:flex; justify-content:space-between; align-items:center; width:100%; gap:12px; flex-wrap:wrap;">
+    
+    <!-- ESQUERDA: MARCA E STATUS -->
+    <div style="display:flex; align-items:center; gap:10px; flex-wrap:nowrap;">
+      <div style="display:flex; align-items:baseline; gap:6px;">
+        <span style="font-family:var(--font-hud); font-size:14px; font-weight:800; letter-spacing:0.06em; color:#fff;">INFECTOCAST</span>
+        <span style="font-family:var(--font-mono); font-size:9.5px; font-weight:700; color:var(--neon-cyan); letter-spacing:0.08em; text-transform:uppercase;">// HUD</span>
+      </div>
+      <div id="hd-sub" style="font-size:10.5px; color:var(--muted); font-family:var(--font-mono); border-left:1px solid rgba(255,255,255,0.15); padding-left:10px; white-space:nowrap;">
+        5 APIs Ativas
+      </div>
+    </div>
+
+    <!-- CENTRO: 5 BADGES DE STATUS DAS APIS COM CONTAGEM EM TEMPO REAL -->
+    <div id="hud-apis-bar" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      
+      <!-- 1. VINDI -->
+      <div class="hud-api-chip" title="API Vindi: Assinaturas recorrentes e faturamento" style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(2,132,199,0.12); border:1px solid rgba(2,132,199,0.3); font-size:10.5px; font-family:var(--font-mono);">
+        <span style="width:6px; height:6px; border-radius:50%; background:#0284c7; box-shadow:0 0 6px #0284c7;"></span>
+        <b style="color:#38bdf8;">VINDI:</b>
+        <span style="color:#e2e8f0;" id="api-cnt-vindi">3.992 fats</span>
+      </div>
+
+      <!-- 2. CATIVA DIGITAL -->
+      <div class="hud-api-chip" title="API Cativa Digital: Alunos, turmas e logs de pós-graduação" style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(236,72,153,0.12); border:1px solid rgba(236,72,153,0.3); font-size:10.5px; font-family:var(--font-mono);">
+        <span style="width:6px; height:6px; border-radius:50%; background:#ec4899; box-shadow:0 0 6px #ec4899;"></span>
+        <b style="color:#f472b6;">CATIVA:</b>
+        <span style="color:#e2e8f0;" id="api-cnt-cativa">12.246 logs</span>
+      </div>
+
+      <!-- 3. ACADEMY -->
+      <div class="hud-api-chip" title="API InfectoCast Academy: Reprodução de aulas e acessos" style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); font-size:10.5px; font-family:var(--font-mono);">
+        <span style="width:6px; height:6px; border-radius:50%; background:#10b981; box-shadow:0 0 6px #10b981;"></span>
+        <b style="color:#34d399;">ACADEMY:</b>
+        <span style="color:#e2e8f0;" id="api-cnt-academy">7.157 logs</span>
+      </div>
+
+      <!-- 4. ASAAS -->
+      <div class="hud-api-chip" title="API Asaas: Cobranças, faturas e assinaturas de cursos rápidos" style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); font-size:10.5px; font-family:var(--font-mono);">
+        <span style="width:6px; height:6px; border-radius:50%; background:#f59e0b; box-shadow:0 0 6px #f59e0b;"></span>
+        <b style="color:#fbbf24;">ASAAS:</b>
+        <span style="color:#e2e8f0;" id="api-cnt-asaas">366 cobr</span>
+      </div>
+
+      <!-- 5. RD STATION CRM -->
+      <div class="hud-api-chip" title="API RD Station CRM: Tagueamento automático e funil de conversão" style="display:flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(124,58,237,0.12); border:1px solid rgba(124,58,237,0.3); font-size:10.5px; font-family:var(--font-mono);">
+        <span style="width:6px; height:6px; border-radius:50%; background:#a855f7; box-shadow:0 0 6px #a855f7;"></span>
+        <b style="color:#c084fc;">RD CRM:</b>
+        <span style="color:#e2e8f0;" id="api-cnt-rd">544 audit</span>
+      </div>
+
+    </div>
+    
+    <!-- DIREITA: AGENDAMENTO HORÁRIO, RELÓGIO & BOTÃO -->
+    <div style="display:flex; align-items:center; gap:8px;">
+      <!-- CHIP DE TAGUEAMENTO 24H RD STATION COM MODAL -->
+      <div class="hud-api-chip" onclick="openModalSync24h()" title="Clique para detalhar alunos sincronizados nas últimas 48h" style="display:flex; align-items:center; gap:5px; padding:4px 9px; border-radius:6px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.5); font-size:10.5px; font-family:var(--font-mono); cursor:pointer; transition:transform 0.15s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        <span class="hud-live-dot" style="background:#10b981;"></span>
+        <b style="color:#34d399;">RD 48H:</b>
+        <span style="color:#10b981; font-weight:800;" id="api-cnt-sync24h">LIVE ↗</span>
+      </div>
+
+      <div class="hud-status-badge" style="padding:4px 8px; font-size:9.5px;" title="Atualização automática programada a cada hora cheia (:00)">
+        <span class="hud-live-dot" style="background:#10b981;"></span>
+        <span id="hud-hourly-sync-label">SYNC: A CADA 15 MIN</span>
+      </div>
+      
+      <div class="hud-clock-box" style="padding:4px 8px; font-size:10px;" title="Última sincronização completa das APIs">
+        <span style="color:var(--muted); font-size:9px; font-family:var(--font-hud); margin-right:3px;">ÚLTIMA SYNC:</span>
+        <span id="hud-last-sync-time" style="font-weight:700; font-family:var(--font-mono); color:#00f0ff;">18/09 16:48</span>
+      </div>
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,129 @@
+<!-- G0 – MONITORAMENTO AO VIVO -->
+      <div class="exec-sec">
+        <div class="exec-sec-head">
+          <div class="exec-sec-title-wrap">
+            <div class="exec-sec-num">G0</div>
+            <div>
+              <h3 class="exec-sec-title">G0 MONITORAMENTO AO VIVO</h3>
+              <div class="exec-sec-sub">Métricas operacionais e comerciais consolidadas em tempo real (Academy, Cativa & Gateways).</div>
+            </div>
+          </div>
+          <button class="btn-exec-link" onclick="openModalMatriculas('24h_conf')" style="background: #10b981; color: #022c22; font-weight: 800; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; display:flex; align-items:center; gap:6px; box-shadow:0 0 12px rgba(16,185,129,0.3); transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+            <span>📋 Detalhar Matrículas (48h / 30d)</span> →
+          </button>
+        </div>
+
+        <!-- LINHA 1: ÚLTIMAS 48 HORAS -->
+        <div style="font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          <span style="color:#10b981;">⚡</span> ÚLTIMAS 48 HORAS
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px;">
+          <!-- Card 1: Confirmadas 48h -->
+          <div class="exec-card" style="border-top:3px solid #10b981; cursor:pointer;" onclick="openModalMatriculas('24h_conf')" title="Clique para ver detalhes das matrículas confirmadas nas últimas 24h">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Matrículas Confirmadas</span>
+              <span class="exec-pill pill-green">⚡ PAGO / CONFIRMADO</span>
+            </div>
+            <div class="exec-card-val" style="color:#10b981;">${fN(matriculas24h)}</div>
+            <div class="exec-card-sub">Vindi • Asaas • Cativa ↗</div>
+          </div>
+
+          <!-- Card 2: Pendentes 48h -->
+          <div class="exec-card" style="border-top:3px solid #f59e0b; cursor:pointer;" onclick="openModalMatriculas('24h_pend')" title="Clique para ver detalhes das matrículas pendentes nas últimas 24h">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Matrículas Pendentes</span>
+              <span class="exec-pill pill-amber" style="background:rgba(245,158,11,0.12); color:#d97706; border:1px solid rgba(245,158,11,0.3);">⏳ SEM PAGAMENTO/USO</span>
+            </div>
+            <div class="exec-card-val" style="color:#f59e0b;">${fN(matInfo.countPendentes24h)}</div>
+            <div class="exec-card-sub">Aguardando Pagamento / Consumo ↗</div>
+          </div>
+
+          <!-- Card 3: Receita 24h -->
+          <div class="exec-card" style="border-top:3px solid var(--emerald);">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Receita Realizada 48h</span>
+              <span class="exec-pill pill-green">Caixa 48h</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--emerald);">${fM(rec48h)}</div>
+            <div class="exec-card-sub">Liquidação Vindi & Asaas</div>
+          </div>
+
+          <!-- Card 4: Alunos Ativos 48h -->
+          <div class="exec-card" style="border-top:3px solid var(--sky);">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Alunos Ativos 48h</span>
+              <span class="exec-pill pill-blue">Uso / Logins</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--sky);">${fN(alunosAtivos48h)}</div>
+            <div class="exec-card-sub">Alunos com aulas e acessos recentes</div>
+          </div>
+
+          <!-- Card 5: Contatos 24h -->
+          <div class="exec-card" style="border-top:3px solid var(--purple); cursor:pointer;" onclick="openRdConversasModal('hoje')" title="Clique para ver contatos e leads das últimas 24h no WhatsApp">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Contatos Recebidos 48h</span>
+              <span class="exec-pill pill-purple">Entrada CRM</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--purple);">${rdConversasData.hoje_contatos > 0 ? fN(rdConversasData.hoje_contatos) : '—'}</div>
+            <div class="exec-card-sub">Canal de entrada / Tráfego ↗</div>
+          </div>
+        </div>
+
+        <!-- LINHA 2: ÚLTIMOS 30 DIAS -->
+        <div style="font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          <span style="color:#3b82f6;">📅</span> ÚLTIMOS 30 DIAS
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px;">
+          <!-- Card 1: Confirmadas 30d -->
+          <div class="exec-card" style="border-top:3px solid #3b82f6; cursor:pointer;" onclick="openModalMatriculas('30d_conf')" title="Clique para ver detalhes das matrículas confirmadas nos últimos 30 dias">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Matrículas Confirmadas</span>
+              <span class="exec-pill pill-blue">📅 PAGO / CONFIRMADO</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--ink);">${fN(matriculas30d)}</div>
+            <div class="exec-card-sub">Vindi • Asaas • Cativa ↗</div>
+          </div>
+
+          <!-- Card 2: Pendentes 30d -->
+          <div class="exec-card" style="border-top:3px solid #f59e0b; cursor:pointer;" onclick="openModalMatriculas('30d_pend')" title="Clique para ver detalhes das matrículas pendentes nos últimos 30 dias">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Matrículas Pendentes</span>
+              <span class="exec-pill pill-amber" style="background:rgba(245,158,11,0.12); color:#d97706; border:1px solid rgba(245,158,11,0.3);">⏳ SEM PAGAMENTO/USO</span>
+            </div>
+            <div class="exec-card-val" style="color:#f59e0b;">${fN(matInfo.countPendentes30d)}</div>
+            <div class="exec-card-sub">Aguardando Pagamento / Consumo ↗</div>
+          </div>
+
+          <!-- Card 3: Receita 30d -->
+          <div class="exec-card" style="border-top:3px solid var(--emerald);">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Receita Realizada 30d</span>
+              <span class="exec-pill pill-green">Caixa 30d</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--emerald);">${fM(rec30d)}</div>
+            <div class="exec-card-sub">Faturamento liquidado (30d)</div>
+          </div>
+
+          <!-- Card 4: Alunos Ativos 30d -->
+          <div class="exec-card" style="border-top:3px solid var(--purple);">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Alunos Ativos 30d</span>
+              <span class="exec-pill pill-purple">Engajamento 30d</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--purple);">${fN(alunosAtivos30d)}</div>
+            <div class="exec-card-sub">Alunos ativos no período</div>
+          </div>
+
+          <!-- Card 5: Contatos 30d -->
+          <div class="exec-card" style="border-top:3px solid var(--purple); cursor:pointer;" onclick="openRdConversasModal('all')" title="Clique para ver conversas e suporte do WhatsApp">
+            <div class="exec-card-top">
+              <span class="exec-card-label">Contatos Recebidos 30d</span>
+              <span class="exec-pill pill-purple">Total CRM</span>
+            </div>
+            <div class="exec-card-val" style="color:var(--purple);">${fN(rdConversasData.total_contatos || 316)}</div>
+            <div class="exec-card-sub">Suporte & Comerciais (WhatsApp) ↗</div>
+          </div>
+        </div>
+      </div>
+      
+      
