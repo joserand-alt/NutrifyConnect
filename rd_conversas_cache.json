@@ -1301,13 +1301,13 @@
         "email": "",
         "cnpj": ""
       },
-      "_id": "6aa2ef0e4337cad2add12a30",
-      "full_name": "Edson Spânghero Dalur",
-      "cel_phone": "5513981136953",
-      "email": "esdalur@gmail.com",
+      "_id": "6aa2ef0e4337cad2add12a2b",
+      "full_name": "Beatriz Pascuotte",
+      "cel_phone": "5519996348485",
+      "email": "beatrizpascuotte@gmail.com",
       "code": null,
       "customizable_field": [],
-      "id": "6aa2ef0e4337cad2add12a30"
+      "id": "6aa2ef0e4337cad2add12a2b"
     },
     {
       "address": {
@@ -15432,6 +15432,119 @@
       "customizable_field": [],
       "full_name": "🙌🏻",
       "id": "6abee519ab8229666b95a5ef"
+    },
+    {
+      "address": {
+        "country": null,
+        "state": null,
+        "city": null,
+        "district": null,
+        "street": null,
+        "number": null,
+        "zip_code": null,
+        "complement": null
+      },
+      "job": {
+        "title": null,
+        "department": null,
+        "company": null,
+        "phone": null,
+        "email": null,
+        "cnpj": null,
+        "site": null,
+        "occupation_area": null
+      },
+      "_id": "6abef07fab8229666b95b863",
+      "cel_phone": "553188673379",
+      "code": null,
+      "customizable_field": [],
+      "full_name": "Isadora",
+      "id": "6abef07fab8229666b95b863"
+    },
+    {
+      "address": {
+        "country": null,
+        "state": null,
+        "city": null,
+        "district": null,
+        "street": null,
+        "number": null,
+        "zip_code": null,
+        "complement": null
+      },
+      "job": {
+        "title": null,
+        "department": null,
+        "company": null,
+        "phone": "",
+        "email": "",
+        "cnpj": null,
+        "site": null,
+        "occupation_area": null
+      },
+      "_id": "6abef0a965c9b1141d6e6071",
+      "full_name": "Paula",
+      "cel_phone": "5512996829179",
+      "email": "pradopaula344@gmail.com",
+      "customizable_field": [],
+      "code": null,
+      "id": "6abef0a965c9b1141d6e6071"
+    },
+    {
+      "address": {
+        "country": null,
+        "state": null,
+        "city": null,
+        "district": null,
+        "street": null,
+        "number": null,
+        "zip_code": null,
+        "complement": null
+      },
+      "job": {
+        "title": null,
+        "department": null,
+        "company": null,
+        "phone": null,
+        "email": null,
+        "cnpj": null,
+        "site": null,
+        "occupation_area": null
+      },
+      "_id": "6abef0b2ab8229666b95b8ae",
+      "cel_phone": "5512996829479",
+      "code": null,
+      "customizable_field": [],
+      "full_name": "Paula Prado",
+      "id": "6abef0b2ab8229666b95b8ae"
+    },
+    {
+      "address": {
+        "country": null,
+        "state": null,
+        "city": null,
+        "district": null,
+        "street": null,
+        "number": null,
+        "zip_code": null,
+        "complement": null
+      },
+      "job": {
+        "title": null,
+        "department": null,
+        "company": null,
+        "phone": null,
+        "email": null,
+        "cnpj": null,
+        "site": null,
+        "occupation_area": null
+      },
+      "_id": "6abef435ab8229666b95bd5a",
+      "cel_phone": "555596805213",
+      "code": null,
+      "customizable_field": [],
+      "full_name": "Angela",
+      "id": "6abef435ab8229666b95bd5a"
     }
   ],
   "employees": [
@@ -15456,5 +15569,5 @@
       "email": "klinger@infectocast.com.br"
     }
   ],
-  "cached_at": "2026-10-01 20:38:01"
+  "cached_at": "2026-10-01 23:50:12"
 }
