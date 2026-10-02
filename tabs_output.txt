@@ -1,0 +1,90 @@
+NAV BLOCK:
+<nav class="tabs" id="tabs">
+      <button class="tab on" data-p="exec" onclick="selectTab('exec')" title="Visão Executiva"><span class="num">★</span><span class="tab-label">Visão Executiva</span></button>
+      <button class="tab" data-p="curso" onclick="selectTab('curso')" id="btn-tab-curso" title="Visão por Curso"><span class="num">🎯</span><span class="tab-label">Visão por Curso</span></button>
+      <button class="tab" data-p="home" onclick="selectTab('home')" title="Visão Geral"><span class="num">0</span><span class="tab-label">Visão Geral</span></button>
+      <button class="tab" data-p="prog" onclick="selectTab('prog')" title="Progresso por Aluno"><span class="num">1</span><span class="tab-label">Progresso por aluno</span></button>
+      <button class="tab" data-p="mod" onclick="selectTab('mod')" title="Engajamento por Módulo"><span class="num">2</span><span class="tab-label">Engajamento por módulo</span></button>
+      <button class="tab" data-p="ret" onclick="selectTab('ret')" title="Retenção & Abandono"><span class="num">3</span><span class="tab-label">Retenção &amp; abandono</span></button>
+      <button class="tab" data-p="tl" onclick="selectTab('tl')" title="Linha Temporal"><span class="num">4</span><span class="tab-label">Linha temporal</span></button>
+      <button class="tab" data-p="funil" onclick="selectTab('funil')" title="Funil de Leads"><span class="num">5</span><span class="tab-label">Funil de Leads</span></button>
+      <button class="tab" data-p="origem" onclick="selectTab('origem')" title="Origem de Matrículas"><span class="num">6</span><span class="tab-label">Origem de Matrículas</span></button>
+      <button class="tab" data-p="fin" onclick="selectTab('fin')" id="btn-tab-fin" title="Financeiro & Projeção"><span class="num">$</span><span class="tab-label">Financeiro &amp; Projeção</span></button>
+    </nav>
+
+
+Found function: selectTab
+function selectTab(pId) {
+    if (!pId) return;
+    try {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        $$('.tab').forEach(t => t.classList.toggle('on', (t.dataset && t.dataset.p === pId) || t.getAttribute('data-p') === pId));
+        $$('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + pId));
+
+// KPIs scoped to relevant tab
+
+        if (pId === 'exec') { try { drawExecView(true); } catch(e) { console.error('Erro drawExecView:', e); } }
+        if (pId === 'curso') { try { drawCursoView((FILTER && FILTER.curso !== 'all') ? FILTER.curso : 'all', true); } catch(e) { console.error('Erro drawCursoView:', e); } }
+        if (pId === 'home') { try { drawHome(true); } catch(e) { console.error('Erro drawHome:', e); } }
+        if (pId === 'prog') { 
+            try { buildHead(); } catch(e) { console.error('Erro buildHead:', e); }
+            try { statusChips(); } catch(e) { console.error('Erro statusChips:', e); }
+            try { renderRows(); } catch(e) { console.error('Erro renderRows:', e); }
+        }
+        if (pId === 'mod') { try { renderModules(); } catch(e) { console.error('Erro renderModules:', e); } }
+        if (pId === 'ret') { try { renderRetention(); } catch(e) { console.error('Erro renderRetention:', e); } }
+        if (pId === 'tl') { try { drawTimeline(true); } catch(e) { console.error('Erro drawTimeline:', e); } }
+        if (pId === 'funil') {
+            try { drawFunil(true); } catch(e) { console.error('Erro drawFunil:', e)
+
+Found function: renderAll
+function renderAll() {
+  buildHead();
+  drawExecView(true);
+  drawHome(true);
+  statusChips();
+  renderRows();
+  renderRetention();
+  drawTimeline(true);
+  renderModules();
+  drawOrigem(true);
+  drawFinanceiro(true);
+  if (typeof drawCursoView === 'function') {
+      const active = (FILTER && FILTER.curso && FILTER.curso !== 'all') ? resolveCanonicalCourse(FILTER.curso) : 'all';
+      drawCursoView(active, true);
+  }
+  if (typeof drawFunil === 'function') {
+      drawFunil(true);
+  }
+}
+
+function renderRetention() {
+    let uniqueMap = new Map();
+    CURRENT_DATA.students.forEach(s => {
+        if(!uniqueMap.has(s.email)) uniqueMap.set(s.email, s);
+        else {
+            let exist = uniqueMap.get(s.email);
+            if (exist.status === 'Nunca acessou' && s.status !== 'Nunca acessou') {
+                uniqueMap.set(s.email, s);
+            }
+        }
+    });
+    
+    let students = Array.from(uniqueMap.values());
+    let total = students.length;
+    if (total === 0) return;
+    
+    let never = 0, churn = 0, risco = 0, ativo = 0;
+    let onesession = 0;
+    let lags = [];
+    let sameDay = 0;
+    let enrolledNever = 0;
+    let churnDiasAtivo = [];
+    let survivalData = []; // for survival curve
+    
+    students.forEach(s => {
+        if (!s.acessou || s.status === 'Nunca acessou' || (s.status === 'Atenção' && !s.acessou)) {
+            never++;
+            if (s.data_insc) enrolledNever++;
+        } else {
+            if (s.status === 'Abandonou' || s.status === 'Ina
