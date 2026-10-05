@@ -1,12 +1,10 @@
-name: Sincronizacao Automatica das APIs & Deploy no GitHub Pages
+name: Atualizar Dash_Nutrify
 
 on:
   schedule:
-    # Executa a cada 2 horas (07h, 09h, 11h, 13h, 15h, 17h, 19h BRT)
-    - cron: '0 */2 * * *'
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+    # Roda automaticamente de segunda a sexta às 07:00 e 13:00 BRT (10:00 e 16:00 UTC)
+    - cron: '0 10,16 * * *'
+  workflow_dispatch: # Permite atualizar manualmente pelo botão no GitHub a qualquer momento
 
 permissions:
   contents: write
@@ -14,70 +12,36 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "dash-sync-pipeline"
-  cancel-in-progress: true
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  sync_and_deploy:
-    env:
-      TZ: America/Sao_Paulo
+  update-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do repositorio
+      - name: Checkout do código
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configurar Python 3.11
+      - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Instalar Dependencias
+      - name: Executar varredura da API da Academy
         run: |
-          python -m pip install --upgrade pip
-          pip install pandas openpyxl requests
+          python atualizar_dashboard_nutrify.py
 
-      # Step de envio de tags e conversoes para o RD Station suspenso
-      # - name: Sincronizar Matriculas e Disparar Tags no RD Station
-      #   run: |
-      #     python sync_matriculas_rd.py || echo "Aviso na sincronizacao de tags"
-
-      - name: Executar Gerador e Consultar APIs (Academy, Cativa, Vindi, Asaas, RD)
-        run: |
-          python gerador.py
-
-      - name: Salvar Caches e Dashboard Atualizado no Git
-        continue-on-error: true
+      - name: Salvar dados atualizados no repositório
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html dashboard_gerado.html template.html *.json || true
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "chore: atualização automática de dados via API [skip ci]" || true
-            git push origin main || echo "Aviso: Push ignorado"
-          else
-            echo "Nenhuma alteracao detectada."
-          fi
+          git add index.html nutrify_connect_dashboard.html
+          git diff --staged --quiet || (git commit -m "chore: atualização automática de dados via API [skip ci]" && git push)
 
-      - name: Keepalive - Evitar pausa do GitHub Actions por inatividade
-        if: github.event_name == 'schedule'
-        continue-on-error: true
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          echo "${TIMESTAMP} - sync OK" > .last_sync
-          git add .last_sync
-          git commit -m "keepalive: ${TIMESTAMP} [skip ci]" || true
-          git push origin main || true
-
-      - name: Configurar GitHub Pages
+      - name: Configurar Pages
         uses: actions/configure-pages@v4
 
       - name: Upload do artefato HTML
