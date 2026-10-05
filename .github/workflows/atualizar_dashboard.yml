@@ -4,6 +4,8 @@ on:
   schedule:
     # Roda automaticamente de segunda a sexta às 07:00 e 13:00 BRT (10:00 e 16:00 UTC)
     - cron: '0 10,16 * * *'
+  push:
+    branches: [ main ]
   workflow_dispatch: # Permite atualizar manualmente pelo botão no GitHub a qualquer momento
 
 permissions:
