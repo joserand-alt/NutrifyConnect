@@ -298,6 +298,158 @@ footer{padding:30px 0 40px;color:var(--muted2);font-size:11.5px;text-align:cente
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
+
+/* ABA RESUMO & PDF REPORT */
+.btn-pdf {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #00563F 0%, #003D2C 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(0, 86, 63, 0.4);
+  border-radius: 8px;
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 86, 63, 0.25);
+  transition: all 0.2s;
+}
+.btn-pdf:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 86, 63, 0.35);
+  background: linear-gradient(135deg, #026b4f 0%, #004c37 100%);
+}
+.report-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.report-grid-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+@media (max-width: 900px) {
+  .report-grid-kpis { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .report-grid-kpis { grid-template-columns: 1fr; }
+}
+.report-kpi-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+}
+.report-kpi-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+}
+.rk-green::before { background: var(--emerald); }
+.rk-amber::before { background: var(--amber); }
+.rk-coral::before { background: var(--coral); }
+.rk-sky::before { background: var(--sky); }
+.rk-violet::before { background: var(--violet); }
+
+.report-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.report-table th {
+  background: #F4F7F5;
+  color: var(--ink);
+  font-family: var(--disp);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.report-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line2);
+  vertical-align: middle;
+}
+.report-table tr:last-child td { border-bottom: none; }
+.report-table tr:hover { background: #FAFDFB; }
+
+/* MEDIA PRINT (GERAR PDF PERFEITO) */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 11px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  header, #tabs, .controls, .btn-pdf, .btn-export, .btn-refresh, .note, footer, #search, #statuschips {
+    display: none !important;
+  }
+  .wrap {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .panel {
+    display: none !important;
+  }
+  #p-resumo {
+    display: block !important;
+    padding: 0 !important;
+  }
+  .card {
+    border: 1px solid #D1D5DB !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 16px !important;
+    padding: 14px !important;
+  }
+  .report-kpi-card {
+    border: 1px solid #D1D5DB !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+  .print-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00563F;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+  .print-header h1 {
+    font-size: 18px !important;
+    color: #00563F !important;
+  }
+  .print-header .ph-meta {
+    font-size: 10px !important;
+    color: #555555 !important;
+  }
+}
+.print-header { display: none; }
+
 </style>
 </head>
 <body>
@@ -349,11 +501,118 @@ footer{padding:30px 0 40px;color:var(--muted2);font-size:11.5px;text-align:cente
   <div class="kpis" id="kpis"></div>
 
   <nav class="tabs" id="tabs">
+    <button class="tab" data-p="resumo"><span class="num">📊</span>Resumo &amp; Relatório PDF</button>
     <button class="tab on" data-p="prog"><span class="num">1</span>Progresso por aluno</button>
     <button class="tab" data-p="mod"><span class="num">2</span>Engajamento por módulo</button>
     <button class="tab" data-p="ret"><span class="num">3</span>Retenção &amp; abandono</button>
     <button class="tab" data-p="tl"><span class="num">4</span>Linha temporal</button>
     </nav>
+
+  <!-- PANEL RESUMO EXECUTIVO (PDF) -->
+  <section class="panel" id="p-resumo">
+    <!-- Cabeçalho visível em Impressão/PDF -->
+    <div class="print-header">
+      <div>
+        <h1 style="font-family:var(--disp); font-weight:700; color:var(--emerald-d); font-size:22px; margin:0;">
+          Nutrify Connect · Relatório Executivo de Acessos &amp; Engajamento
+        </h1>
+        <div class="ph-meta" style="margin-top:4px;">
+          Programa Corporativo de Capacitação Técnica | Base: Colaboradores @nutrify.com.br e @integralmedica.com
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <span class="report-badge" style="background:var(--emerald-w); color:var(--emerald-d); border:1px solid #BBD9CE;">
+          Relatório Oficial
+        </span>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="rep-gen-date">
+          Gerado em: --
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-head" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h2>Resumo Executivo &amp; Indicadores de Engajamento</h2>
+        <p>Visão executiva consolidada: métricas gerais, progresso curricular por módulo e segmentação de saúde dos alunos (Engajados, Em Risco, Abandonos e Nunca Acessaram).</p>
+      </div>
+      <div>
+        <button class="btn-pdf" onclick="window.print()" title="Imprimir ou Salvar Relatório Completo em PDF">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Salvar em PDF / Imprimir
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. BLOCO DE KPIS GERAIS -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="mini-title" style="display:flex; align-items:center; gap:8px;">
+        <span style="color:var(--emerald)">●</span> KPIs Gerais da Plataforma
+      </div>
+      <div class="mini-sub">Indicadores globais de adesão, atividade e testes práticos</div>
+      <div class="report-grid-kpis" id="rep-kpis-gerais"></div>
+    </div>
+
+    <!-- 2. BLOCO DE SAÚDE E SEGMENTAÇÃO DE ALUNOS -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="mini-title" style="display:flex; align-items:center; gap:8px;">
+        <span style="color:var(--amber)">●</span> Segmentação de Alunos (Engajados, Em Risco, Abandono e Nunca Acessaram)
+      </div>
+      <div class="mini-sub">Status comportamental baseado na recência, cadência de estudos e conclusão de aulas</div>
+      <div class="report-grid-kpis" id="rep-kpis-status"></div>
+      
+      <!-- Tabela Resumo da Segmentação de Alunos -->
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Classificação</th>
+              <th>Definição Operacional</th>
+              <th style="text-align:right;">Alunos</th>
+              <th style="text-align:right;">% da Base</th>
+              <th>Recomendação / Ação Sugerida</th>
+            </tr>
+          </thead>
+          <tbody id="rep-tbody-status"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. BLOCO DE MÓDULOS DISPONÍVEIS E ENGAJAMENTO -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="mini-title" style="display:flex; align-items:center; gap:8px;">
+        <span style="color:var(--sky)">●</span> Módulos Disponíveis &amp; Engajamento Curricular
+      </div>
+      <div class="mini-sub">Adesão por trilha de conhecimento, total de aulas e índice de conclusão</div>
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Módulo / Trilha</th>
+              <th style="text-align:center;">Qtd. Aulas</th>
+              <th style="text-align:right;">Alunos que Fizeram</th>
+              <th style="text-align:right;">Taxa de Adesão</th>
+              <th style="min-width:180px;">Progresso Comparativo</th>
+            </tr>
+          </thead>
+          <tbody id="rep-tbody-modulos"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. BLOCO DE NOTAS E AUDITORIA -->
+    <div class="card" style="background:#FAFDFB; border-left:4px solid var(--emerald);">
+      <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+        <b>Critérios e Metodologia:</b> Os dados deste relatório são processados a partir dos logs de uso e matrículas da plataforma Nutrify Connect.
+        Alunos <b>Engajados/Ativos</b> mantém histórico de acesso recente ou módulos 100% concluídos. 
+        Alunos <b>Em Risco</b> apresentaram quebra na cadência habitual de consumo. 
+        Alunos <b>Abandonos</b> não registram atividade há mais de 30 dias após início, e <b>Nunca Acessaram</b> possuem conta liberada porém sem registro de login até o momento.
+      </div>
+    </div>
+  </section>
 
   <!-- PANEL 1 -->
   <section class="panel on" id="p-prog">
@@ -740,8 +999,172 @@ const STATUS = {
   'Nunca acessou':{cls:'b-nunca'}
 };
 
+
+function renderResumo() {
+    const M = CURRENT_DATA.meta || {};
+    const students = CURRENT_DATA.students || [];
+    const totalInscritos = students.length || M.n_inscritos || 1;
+    
+    // Atualizar data de geração no print header
+    if ($('#rep-gen-date')) {
+        const d = (M && M.updated_at) ? M.updated_at : (new Date()).toLocaleDateString('pt-BR') + ' às ' + (new Date()).toLocaleTimeString('pt-BR').substring(0,5);
+        $('#rep-gen-date').textContent = 'Gerado em: ' + d;
+    }
+    
+    // 1. KPIs Gerais
+    const ev = CURRENT_DATA.action_counts || {};
+    const nReprod = (ev['Concluiu aula'] || 0) + (ev['Iniciou aula'] || 0) || (ev['CONCLUIU AULA'] || 0) + (ev['INICIOU AULA'] || 0) || (ev['ASSISTIU AULA'] || 0) || (M.total_aulas_feitas || 0);
+    const nLogins = (ev['Login'] || 0) || (ev['LOGIN WEB'] || 0) || (M.total_logins || 0);
+    const nTestes = (ev['Concluiu teste'] || 0) + (ev['Refez teste'] || 0) || (ev['CONCLUIU TESTE/MÓDULO'] || 0) + (ev['REFAZER TESTE/MÓDULO'] || 0);
+    const taxaAcesso = ((M.n_acessaram / Math.max(1, M.n_inscritos)) * 100).toFixed(1).replace('.', ',');
+
+    const kpisGeraisHtml = [
+        { l: 'Total de Matriculados', v: fmt(M.n_inscritos), s: 'Colaboradores autorizados', cls: 'rk-green', c: 'var(--ink)' },
+        { l: 'Taxa de Acesso Inicial', v: taxaAcesso + '%', s: fmt(M.n_acessaram) + ' colaboradores já acessaram', cls: 'rk-sky', c: 'var(--sky)' },
+        { l: 'Total de Reproduções', v: fmt(nReprod), s: 'Aulas assistidas / iniciadas', cls: 'rk-green', c: 'var(--emerald)' },
+        { l: 'Quizzes / Testes Concluídos', v: fmt(nTestes), s: 'Avaliações concluídas', cls: 'rk-amber', c: 'var(--amber)' }
+    ].map(k => `
+        <div class="report-kpi-card ${k.cls}">
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted);">${k.l}</div>
+          <div style="font-family:var(--disp); font-size:26px; font-weight:700; color:${k.c}; line-height:1.2; margin-top:6px;">${k.v}</div>
+          <div style="font-size:11.5px; color:var(--muted2); margin-top:2px;">${k.s}</div>
+        </div>
+    `).join('');
+    if ($('#rep-kpis-gerais')) $('#rep-kpis-gerais').innerHTML = kpisGeraisHtml;
+
+    // 2. Segmentação de Alunos (Engajados, Em Risco, Abandono, Nunca Acessaram)
+    let nEngajados = 0;
+    let nRisco = 0;
+    let nAbandono = 0;
+    let nNunca = 0;
+    let nApenasLogin = 0;
+
+    students.forEach(s => {
+        const st = s.status || '';
+        if (st === 'Concluído' || st === 'Ativo') {
+            nEngajados++;
+        } else if (st === 'Em Risco') {
+            nRisco++;
+        } else if (st === 'Abandonou') {
+            nAbandono++;
+        } else if (st === 'Nunca acessou') {
+            nNunca++;
+        } else if (st === 'Apenas Login') {
+            nApenasLogin++;
+        } else {
+            if (s.eventos > 0) nEngajados++; else nNunca++;
+        }
+    });
+
+    const pct = val => ((val / Math.max(1, totalInscritos)) * 100).toFixed(1).replace('.', ',') + '%';
+
+    const kpisStatusHtml = [
+        { l: 'Engajados / Ativos', v: fmt(nEngajados), p: pct(nEngajados), s: 'Concluíram ou ativos recentemente', cls: 'rk-green', c: 'var(--emerald)' },
+        { l: 'Em Risco', v: fmt(nRisco), p: pct(nRisco), s: 'Quebra na cadência habitual', cls: 'rk-amber', c: 'var(--amber)' },
+        { l: 'Abandonos', v: fmt(nAbandono), p: pct(nAbandono), s: 'Mais de 30 dias sem atividade', cls: 'rk-coral', c: 'var(--coral)' },
+        { l: 'Nunca Acessaram', v: fmt(nNunca), p: pct(nNunca), s: 'Zero login na plataforma', cls: 'rk-violet', c: 'var(--violet)' }
+    ].map(k => `
+        <div class="report-kpi-card ${k.cls}">
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted);">${k.l}</div>
+          <div style="font-family:var(--disp); font-size:26px; font-weight:700; color:${k.c}; line-height:1.2; margin-top:6px;">
+            ${k.v} <span style="font-size:13px; font-weight:500; color:var(--muted);">(${k.p})</span>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted2); margin-top:2px;">${k.s}</div>
+        </div>
+    `).join('');
+    if ($('#rep-kpis-status')) $('#rep-kpis-status').innerHTML = kpisStatusHtml;
+
+    // Tabela detalhada de status
+    const statusRows = [
+        {
+            tag: '<span class="badge b-muito"><i class="b-dot"></i>Engajados / Ativos</span>',
+            def: 'Alunos que concluíram módulos ou registraram acessos recentes de acordo com a cadência esperada.',
+            count: nEngajados,
+            rec: 'Manter estímulo, reconhecer conclusões e enviar próximos módulos / novidades de produto.'
+        },
+        {
+            tag: '<span class="badge b-risco"><i class="b-dot"></i>Em Risco</span>',
+            def: 'Alunos que iniciaram o treinamento mas pararam de acessar, excedendo seu intervalo médio de estudo.',
+            count: nRisco,
+            rec: 'Acionar mensagem de acompanhamento no WhatsApp lembrando da continuidade do módulo.'
+        },
+        {
+            tag: '<span class="badge b-aband"><i class="b-dot"></i>Abandono</span>',
+            def: 'Alunos com registro prévio de atividade porém inativos há mais de 30 dias consecutivos.',
+            count: nAbandono,
+            rec: 'Campanha de resgate comercial/gestão com reforço de aplicação prática nas vendas.'
+        },
+        {
+            tag: '<span class="badge b-nunca"><i class="b-dot"></i>Nunca Acessaram</span>',
+            def: 'Colaboradores cadastrados e com permissão ativa que não realizaram nenhum login na plataforma.',
+            count: nNunca,
+            rec: 'Verificar se receberam e-mail de ativação e apoiar no primeiro acesso guiado.'
+        }
+    ];
+
+    if ($('#rep-tbody-status')) {
+        $('#rep-tbody-status').innerHTML = statusRows.map(r => `
+            <tr>
+              <td>${r.tag}</td>
+              <td style="color:var(--muted); font-size:12.5px;">${r.def}</td>
+              <td style="text-align:right; font-weight:700; font-family:var(--disp);">${fmt(r.count)}</td>
+              <td style="text-align:right; font-weight:600; color:var(--muted); font-family:var(--disp);">${pct(r.count)}</td>
+              <td style="font-size:12px; color:var(--ink2);"><b>${r.rec}</b></td>
+            </tr>
+        `).join('');
+    }
+
+    // 3. Módulos Disponíveis e Engajamento
+    let mods = [];
+    if (DATA.curriculum) {
+        const cKeys = Object.keys(DATA.curriculum);
+        if (cKeys.length > 0) mods = DATA.curriculum[cKeys[0]] || [];
+    }
+
+    const lv = CURRENT_DATA.lesson_views || {};
+    const getLessonCount = a => {
+        if (lv[a.id]) return lv[a.id].size;
+        let normA = (a.nome || '').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        let best = 0;
+        Object.keys(lv).forEach(k => {
+            let normK = k.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            if (normK.includes(normA) || normA.includes(normK)) best = Math.max(best, lv[k].size);
+        });
+        return best || a.concluiu || a.iniciou || 0;
+    };
+
+    if ($('#rep-tbody-modulos')) {
+        $('#rep-tbody-modulos').innerHTML = mods.map(m => {
+            const aulas = m.aulas || [];
+            let maxAlunosNoModulo = 0;
+            aulas.forEach(a => {
+                const c = getLessonCount(a);
+                if (c > maxAlunosNoModulo) maxAlunosNoModulo = c;
+            });
+            const taxaMod = ((maxAlunosNoModulo / Math.max(1, totalInscritos)) * 100).toFixed(1).replace('.', ',') + '%';
+            const pctNum = Math.min(100, (maxAlunosNoModulo / Math.max(1, totalInscritos)) * 100);
+
+            return `
+              <tr>
+                <td><strong style="color:var(--emerald-d); font-size:13.5px;">${m.modulo}</strong></td>
+                <td style="text-align:center; font-family:var(--disp); font-weight:600;">${aulas.length}</td>
+                <td style="text-align:right; font-weight:700; font-family:var(--disp); color:var(--ink);">${fmt(maxAlunosNoModulo)}</td>
+                <td style="text-align:right; font-weight:700; font-family:var(--disp); color:var(--emerald);">${taxaMod}</td>
+                <td>
+                  <div class="pct-cell">
+                    <div class="pct-bar"><i style="width:${pctNum.toFixed(1)}%;"></i></div>
+                    <div class="pct-txt">${pctNum.toFixed(0)}%</div>
+                  </div>
+                </td>
+              </tr>
+            `;
+        }).join('');
+    }
+}
+
 function renderAll() {
     buildHead();
+    renderResumo();
     statusChips();
     renderRows();
     renderRetention();
@@ -1444,6 +1867,7 @@ $$('.tab').forEach(t=>t.onclick=e=>{
   $$('.tab').forEach(x=>x.classList.remove('on')); t.classList.add('on');
   $$('.panel').forEach(p=>p.classList.remove('on'));
   $('#p-'+t.dataset.p).classList.add('on');
+  if(t.dataset.p==='resumo') renderResumo();
   if(t.dataset.p==='tl') drawTimeline(true);
   if(t.dataset.p==='mod') renderModules();
   if(t.dataset.p==='funil') {
