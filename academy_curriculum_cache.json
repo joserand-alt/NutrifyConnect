@@ -1,0 +1,515 @@
+[
+  {
+    "id": 1023,
+    "modulo": "Ômegas",
+    "ordem": 1,
+    "aulas": [
+      {
+        "id": 100158,
+        "ordem": "1ª",
+        "nome": "O que são os Ômegas e Por que são Importantes?",
+        "curriculo": true,
+        "match": [
+          "O QUE SAO OS OMEGAS E POR QUE SAO IMPORTANTES?"
+        ]
+      },
+      {
+        "id": 100307,
+        "ordem": "2ª",
+        "nome": "Ômega 3",
+        "curriculo": true,
+        "match": [
+          "OMEGA 3"
+        ]
+      },
+      {
+        "id": 100308,
+        "ordem": "3ª",
+        "nome": "DHA 1000",
+        "curriculo": true,
+        "match": [
+          "DHA 1000",
+          "DHA1000"
+        ]
+      },
+      {
+        "id": 100309,
+        "ordem": "4ª",
+        "nome": "Ômega Beat",
+        "curriculo": true,
+        "match": [
+          "OMEGA BEAT"
+        ]
+      },
+      {
+        "id": 100310,
+        "ordem": "5ª",
+        "nome": "Dicas de Venda",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1051,
+    "modulo": "Creatinas",
+    "ordem": 2,
+    "aulas": [
+      {
+        "id": 100311,
+        "ordem": "1ª",
+        "nome": "O que é Creatina e Por que é Importante?",
+        "curriculo": true,
+        "match": [
+          "O QUE E CREATINA E POR QUE E IMPORTANTE?"
+        ]
+      },
+      {
+        "id": 100312,
+        "ordem": "2ª",
+        "nome": "100% Creatine - Monoidratada Pura",
+        "curriculo": true,
+        "match": [
+          "CREATINE 300G",
+          "100% CREATINE",
+          "100% CREATINE - MONOIDRATADA PURA",
+          "CREATINE 600G"
+        ]
+      },
+      {
+        "id": 100313,
+        "ordem": "3ª",
+        "nome": "100% Creatina em Cápsulas",
+        "curriculo": true,
+        "match": [
+          "100% CREATINA EM CAPSULAS"
+        ]
+      },
+      {
+        "id": 100314,
+        "ordem": "4ª",
+        "nome": "Creatine Creapure",
+        "curriculo": true,
+        "match": [
+          "CREATINE CREAPURE"
+        ]
+      },
+      {
+        "id": 100316,
+        "ordem": "5ª",
+        "nome": "Creatine Tasty",
+        "curriculo": true,
+        "match": [
+          "CREATINE TASTY"
+        ]
+      },
+      {
+        "id": 100317,
+        "ordem": "6ª",
+        "nome": "Creatine HMB",
+        "curriculo": true,
+        "match": [
+          "CREATINE HMB"
+        ]
+      },
+      {
+        "id": 100336,
+        "ordem": "7ª",
+        "nome": "Dicas de Venda",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1024,
+    "modulo": "Aminoácidos",
+    "ordem": 3,
+    "aulas": [
+      {
+        "id": 100337,
+        "ordem": "1ª",
+        "nome": "Glutamina",
+        "curriculo": true,
+        "match": [
+          "GLUTAMINA",
+          "GLUTAMINE"
+        ]
+      },
+      {
+        "id": 100340,
+        "ordem": "2ª",
+        "nome": "Dicas de Venda",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1072,
+    "modulo": "Vitaminas e minerais",
+    "ordem": 4,
+    "aulas": [
+      {
+        "id": 100343,
+        "ordem": "2ª",
+        "nome": "Vitamina B12",
+        "curriculo": true,
+        "match": [
+          "VITAMINA B12"
+        ]
+      },
+      {
+        "id": 100344,
+        "ordem": "3ª",
+        "nome": "Vit B Complex",
+        "curriculo": true,
+        "match": [
+          "VITB COMPLEX",
+          "VIT B COMPLEX"
+        ]
+      },
+      {
+        "id": 100345,
+        "ordem": "4ª",
+        "nome": "Vitamina D3",
+        "curriculo": true,
+        "match": [
+          "VITAMINA D3"
+        ]
+      },
+      {
+        "id": 100346,
+        "ordem": "5ª",
+        "nome": "Magnésio",
+        "curriculo": true,
+        "match": [
+          "MAGNESIO"
+        ]
+      },
+      {
+        "id": 100347,
+        "ordem": "6ª",
+        "nome": "Mag 5 Complex",
+        "curriculo": true,
+        "match": [
+          "MAG 5 COMPLEX"
+        ]
+      },
+      {
+        "id": 100348,
+        "ordem": "7ª",
+        "nome": "Magnesium Inositol",
+        "curriculo": true,
+        "match": [
+          "MAGNESIUM INOSITOL"
+        ]
+      },
+      {
+        "id": 100349,
+        "ordem": "8ª",
+        "nome": "Zinco",
+        "curriculo": true,
+        "match": [
+          "ZINCO"
+        ]
+      },
+      {
+        "id": 100350,
+        "ordem": "9ª",
+        "nome": "Multi All",
+        "curriculo": true,
+        "match": [
+          "MULTI ALL"
+        ]
+      },
+      {
+        "id": 100651,
+        "ordem": "10ª",
+        "nome": "Dicas de Venda",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1022,
+    "modulo": "Colágenos",
+    "ordem": 5,
+    "aulas": [
+      {
+        "id": 100378,
+        "ordem": "2ª",
+        "nome": "Collagen Derm",
+        "curriculo": true,
+        "match": [
+          "COLLAGEN DERM"
+        ]
+      },
+      {
+        "id": 100379,
+        "ordem": "3ª",
+        "nome": "Collagen Renew",
+        "curriculo": true,
+        "match": [
+          "COLLAGEN RENEW"
+        ]
+      },
+      {
+        "id": 100380,
+        "ordem": "4ª",
+        "nome": "Collagen II",
+        "curriculo": true,
+        "match": [
+          "COLLAGEN II"
+        ]
+      },
+      {
+        "id": 100381,
+        "ordem": "5ª",
+        "nome": "ArtroAid",
+        "curriculo": true,
+        "match": [
+          "ARTROAID"
+        ]
+      },
+      {
+        "id": 100382,
+        "ordem": "6ª",
+        "nome": "Collagen Drink",
+        "curriculo": true,
+        "match": [
+          "COLLAGEN DRINK"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1040,
+    "modulo": "Antioxidantes",
+    "ordem": 6,
+    "aulas": [
+      {
+        "id": 100610,
+        "ordem": "2ª",
+        "nome": "Coenzima Q10",
+        "curriculo": true,
+        "match": [
+          "COENZIMA Q10"
+        ]
+      },
+      {
+        "id": 100611,
+        "ordem": "3ª",
+        "nome": "Immune up",
+        "curriculo": true,
+        "match": [
+          "IMMUNE UP",
+          "IMUNE UP",
+          "IMUN UP"
+        ]
+      },
+      {
+        "id": 100612,
+        "ordem": "4ª",
+        "nome": "Pure ox",
+        "curriculo": true,
+        "match": [
+          "PUREOX",
+          "PURE OX"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1041,
+    "modulo": "Supernutrientes",
+    "ordem": 7,
+    "aulas": [
+      {
+        "id": 100620,
+        "ordem": "1ª",
+        "nome": "O que são super nutrientes",
+        "curriculo": true,
+        "match": [
+          "O QUE SAO SUPER NUTRIENTES"
+        ]
+      },
+      {
+        "id": 100621,
+        "ordem": "2ª",
+        "nome": "Good Mood",
+        "curriculo": true,
+        "match": [
+          "GOOD MOOD"
+        ]
+      },
+      {
+        "id": 100622,
+        "ordem": "3ª",
+        "nome": "Natural Sleep",
+        "curriculo": true,
+        "match": [
+          "NATURAL SLEEP"
+        ]
+      },
+      {
+        "id": 100623,
+        "ordem": "4ª",
+        "nome": "Dicas de Venda",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1042,
+    "modulo": "Proteínas",
+    "ordem": 8,
+    "aulas": [
+      {
+        "id": 100613,
+        "ordem": "1ª",
+        "nome": "O que são Proteinas",
+        "curriculo": true,
+        "match": [
+          "O QUE SAO PROTEINAS"
+        ]
+      },
+      {
+        "id": 100614,
+        "ordem": "2ª",
+        "nome": "Clean Pro Whey",
+        "curriculo": true,
+        "match": [
+          "CLEAN PRO WHEY"
+        ]
+      },
+      {
+        "id": 100615,
+        "ordem": "3ª",
+        "nome": "Clean Pro Whey zero lactose",
+        "curriculo": true,
+        "match": [
+          "CLEAN PRO WHEY ZERO LACTOSE"
+        ]
+      },
+      {
+        "id": 100616,
+        "ordem": "4ª",
+        "nome": "Collagen Pro",
+        "curriculo": true,
+        "match": [
+          "COLLAGEN PRO"
+        ]
+      },
+      {
+        "id": 100617,
+        "ordem": "5ª",
+        "nome": "Vegan Pro",
+        "curriculo": true,
+        "match": [
+          "VEGAN PRO"
+        ]
+      },
+      {
+        "id": 100618,
+        "ordem": "6ª",
+        "nome": "Vegan Tasty",
+        "curriculo": true,
+        "match": [
+          "VEGAN TASTY"
+        ]
+      },
+      {
+        "id": 100619,
+        "ordem": "7ª",
+        "nome": "Dicas de vendas",
+        "curriculo": true,
+        "match": [
+          "DICAS DE VENDAS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1021,
+    "modulo": "Institucional Nutrify",
+    "ordem": 11,
+    "aulas": [
+      {
+        "id": 100154,
+        "ordem": "1ª",
+        "nome": "História da Nutrify e Grupo BRG",
+        "curriculo": true,
+        "match": [
+          "HISTORIA DA NUTRIFY E GRUPO BRG"
+        ]
+      },
+      {
+        "id": 100155,
+        "ordem": "2ª",
+        "nome": "Missão, Visão e Valores (Nutrify e BRG)",
+        "curriculo": true,
+        "match": [
+          "MISSAO, VISAO E VALORES (NUTRIFY E BRG)"
+        ]
+      },
+      {
+        "id": 100156,
+        "ordem": "3ª",
+        "nome": "Essência e Branding",
+        "curriculo": true,
+        "match": [
+          "ESSENCIA E BRANDING"
+        ]
+      },
+      {
+        "id": 100250,
+        "ordem": "4ª",
+        "nome": "Público-alvo e posicionamento",
+        "curriculo": true,
+        "match": [
+          "PUBLICO-ALVO E POSICIONAMENTO"
+        ]
+      },
+      {
+        "id": 100251,
+        "ordem": "5ª",
+        "nome": "Estrutura Fabril: CT House, DACON, Fazendinha, GR x GLP",
+        "curriculo": true,
+        "match": [
+          "ESTRUTURA FABRIL: CT HOUSE, DACON, FAZENDINHA, GR X GLP"
+        ]
+      },
+      {
+        "id": 100252,
+        "ordem": "6ª",
+        "nome": "Ações Sociais (Saúde em Dia, Social Idoso, Academia de Música)",
+        "curriculo": true,
+        "match": [
+          "ACOES SOCIAIS (SAUDE EM DIA, SOCIAL IDOSO, ACADEMIA DE MUSICA)"
+        ]
+      },
+      {
+        "id": 100253,
+        "ordem": "7ª",
+        "nome": "Vídeos institucionais das três marcas e vídeo \"40 anos BRG\"",
+        "curriculo": true,
+        "match": [
+          "VIDEOS INSTITUCIONAIS DAS TRES MARCAS E VIDEO \"40 ANOS BRG\""
+        ]
+      }
+    ]
+  }
+]

@@ -15,71 +15,105 @@ def norm(s):
     nfkd = unicodedata.normalize('NFKD', str(s))
     return "".join([c for c in nfkd if not unicodedata.combining(c)]).upper().strip()
 
-# Complete curriculum of Nutrify
-MODULES_DEF = [
-    {
-        "modulo": "Ômegas",
-        "aulas": [
-            {"ordem": "1ª", "nome": "O que são os Ômegas e Por que são Importantes?", "curriculo": True, "match": ["O QUE SAO OS OMEGAS"]},
-            {"ordem": "2ª", "nome": "Ômega 3", "curriculo": True, "match": ["OMEGA 3"]},
-            {"ordem": "3ª", "nome": "DHA 1000", "curriculo": True, "match": ["DHA 1000", "DHA1000"]},
-            {"ordem": "4ª", "nome": "Ômega Beat", "curriculo": True, "match": ["OMEGA BEAT"]},
-            {"ordem": "5ª", "nome": "Dicas de Venda", "curriculo": True, "match": ["DICAS DE VENDA"]}
-        ]
-    },
-    {
-        "modulo": "Creatinas",
-        "aulas": [
-            {"ordem": "1ª", "nome": "O que é Creatina e Por que é Importante?", "curriculo": True, "match": ["O QUE E CREATINA"]},
-            {"ordem": "2ª", "nome": "100% Creatine - Monoidratada Pura", "curriculo": True, "match": ["100% CREATINE - MONOIDRATADA PURA", "100% CREATINE 300G", "100% CREATINE 600G"]},
-            {"ordem": "3ª", "nome": "100% Creatina em Cápsulas", "curriculo": True, "match": ["100% CREATINA EM CAPSULAS", "100% CREATINE 120 CAPS"]},
-            {"ordem": "4ª", "nome": "Creatine Creapure", "curriculo": True, "match": ["CREATINE CREAPURE"]},
-            {"ordem": "5ª", "nome": "Creatine Tasty", "curriculo": True, "match": ["CREATINE TASTY"]},
-            {"ordem": "6ª", "nome": "Creatine HMB", "curriculo": True, "match": ["CREATINE HMB"]},
-            {"ordem": "7ª", "nome": "Dicas de Venda", "curriculo": True, "match": ["DICAS DE VENDA"]}
-        ]
-    },
-    {
-        "modulo": "Aminoácidos",
-        "aulas": [
-            {"ordem": "1ª", "nome": "Glutamine", "curriculo": True, "match": ["GLUTAMINA", "GLUTAMINE"]},
-            {"ordem": "2ª", "nome": "Dicas de Venda", "curriculo": True, "match": ["DICAS DE VENDA"]}
-        ]
-    },
-    {
-        "modulo": "Vitaminas e minerais",
-        "aulas": [
-            {"ordem": "1ª", "nome": "O que são Vitaminas e Minerais e Por que são Importantes?", "curriculo": True, "match": ["O QUE SAO VITAMINAS E MINERAIS"]},
-            {"ordem": "2ª", "nome": "Vitamina B12", "curriculo": True, "match": ["VITAMINA B12"]},
-            {"ordem": "3ª", "nome": "Vit B Complex", "curriculo": True, "match": ["VIT B COMPLEX", "VITB COMPLEX"]},
-            {"ordem": "4ª", "nome": "Vitamina D3", "curriculo": True, "match": ["VITAMINA D3"]},
-            {"ordem": "5ª", "nome": "Magnésio", "curriculo": True, "match": ["MAGNESIO"]},
-            {"ordem": "6ª", "nome": "Mag 5 Complex", "curriculo": True, "match": ["MAG 5 COMPLEX"]},
-            {"ordem": "7ª", "nome": "Magnesium Inositol", "curriculo": True, "match": ["MAGNESIUM INOSITOL"]},
-            {"ordem": "8ª", "nome": "Zinco", "curriculo": True, "match": ["ZINCO"]},
-            {"ordem": "9ª", "nome": "Multi All", "curriculo": True, "match": ["MULTI ALL"]}
-        ]
-    },
-    {
-        "modulo": "Colágenos",
-        "aulas": [
-            {"ordem": "1ª", "nome": "Collagen Drink", "curriculo": True, "match": ["COLLAGEN DRINK"]},
-            {"ordem": "2ª", "nome": "Collagen II", "curriculo": True, "match": ["COLLAGEN II"]},
-            {"ordem": "3ª", "nome": "Collagen Derm", "curriculo": True, "match": ["COLLAGEN DERM"]},
-            {"ordem": "4ª", "nome": "Collagen Renew", "curriculo": True, "match": ["COLLAGEN RENEW"]},
-            {"ordem": "5ª", "nome": "Artroaid", "curriculo": True, "match": ["ARTROAID"]}
-        ]
-    },
-    {
-        "modulo": "Antioxidantes",
-        "aulas": [
-            {"ordem": "1ª", "nome": "O que são os Antioxidantes e Por que são Importantes?", "curriculo": True, "match": ["O QUE SAO OS ANTIOXIDANTES", "O QUE SAO ANTIOXIDANTE", "O QUE E ANTIOXIDANTE", "ANTIOXIDANTE"]},
-            {"ordem": "2ª", "nome": "Coenzima Q10", "curriculo": True, "match": ["COENZIMA Q10", "COQ10", "COENZIMA"]},
-            {"ordem": "3ª", "nome": "Immune Up", "curriculo": True, "match": ["IMMUNE UP", "IMUNE UP", "IMUN UP"]},
-            {"ordem": "4ª", "nome": "PureOx", "curriculo": True, "match": ["PUREOX", "PURE OX"]}
-        ]
-    }
-]
+# Integração Dinâmica com a API do Academy (Modelo AcademyService do Dash_InfectoCast)
+CACHE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "academy_curriculum_cache.json")
+
+def fetch_curriculum_from_api(course_id=111):
+    """
+    Busca dinâmica de módulos e aulas diretamente na API InfectoCast Academy
+    Modelo oficial utilizado no Dash_InfectoCast (GET /cursos/{id}/modulos e /aulas)
+    """
+    url_mods = f"https://academy.infectocast.com.br/api/cursos/{course_id}/modulos"
+    try:
+        req = urllib.request.Request(url_mods, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+        raw_mods = data.get('data', data) if isinstance(data, dict) else data
+        
+        if not raw_mods or not isinstance(raw_mods, list):
+            raise ValueError("Resposta de módulos vazia ou inválida")
+            
+        curriculum = []
+        for m in raw_mods:
+            mid = m.get('id')
+            mnome = str(m.get('nome') or f"Módulo {mid}").strip()
+            mord = m.get('ordem', 1)
+            
+            url_aulas = f"https://academy.infectocast.com.br/api/cursos/{course_id}/modulos/{mid}/aulas"
+            try:
+                req_a = urllib.request.Request(url_aulas, headers=HEADERS)
+                with urllib.request.urlopen(req_a, timeout=12) as resp_a:
+                    data_a = json.loads(resp_a.read().decode('utf-8'))
+                raw_aulas = data_a.get('data', data_a) if isinstance(data_a, dict) else data_a
+            except Exception as e_a:
+                print(f"Aviso ao buscar aulas do módulo {mid}: {e_a}")
+                raw_aulas = []
+                
+            aulas_list = []
+            for a in raw_aulas:
+                anome = str(a.get('nome') or "").strip()
+                if not anome:
+                    continue
+                aord = a.get('ordem', 1)
+                
+                # Match patterns inteligentes baseados no nome da aula retornado pela API
+                matches = [norm(anome)]
+                norm_nome = norm(anome)
+                if "DHA 1000" in norm_nome or "DHA1000" in norm_nome:
+                    matches.extend(["DHA 1000", "DHA1000"])
+                if "100% CREATINE" in norm_nome:
+                    matches.extend(["100% CREATINE", "CREATINE 300G", "CREATINE 600G"])
+                if "GLUTAMINA" in norm_nome or "GLUTAMINE" in norm_nome:
+                    matches.extend(["GLUTAMINA", "GLUTAMINE"])
+                if "VIT B COMPLEX" in norm_nome:
+                    matches.extend(["VIT B COMPLEX", "VITB COMPLEX"])
+                if "IMMUNE UP" in norm_nome or "IMUNE UP" in norm_nome:
+                    matches.extend(["IMMUNE UP", "IMUNE UP", "IMUN UP"])
+                if "PUREOX" in norm_nome or "PURE OX" in norm_nome:
+                    matches.extend(["PUREOX", "PURE OX"])
+                    
+                aulas_list.append({
+                    "id": a.get('id'),
+                    "ordem": f"{aord}ª",
+                    "nome": anome,
+                    "curriculo": True,
+                    "match": list(set(matches))
+                })
+                
+            curriculum.append({
+                "id": mid,
+                "modulo": mnome,
+                "ordem": mord,
+                "aulas": aulas_list
+            })
+            
+        # Salva em cache para redundância
+        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(curriculum, f, indent=2, ensure_ascii=False)
+            
+        print(f"[API] Currículo sincronizado ao vivo da API do Academy: {len(curriculum)} módulos, {sum(len(m['aulas']) for m in curriculum)} aulas.")
+        return curriculum
+    except Exception as e:
+        print(f"[API] Falha ao consultar módulos na API ({e}). Tentando carregar cache local...")
+        if os.path.exists(CACHE_FILE):
+            try:
+                with open(CACHE_FILE, "r", encoding="utf-8") as f:
+                    cached = json.load(f)
+                    if cached:
+                        print(f"[Cache] Carregados {len(cached)} módulos do cache.")
+                        return cached
+            except Exception:
+                pass
+        return []
+
+# Carregar currículo dinâmico ao vivo da API
+MODULES_DEF = fetch_curriculum_from_api(course_id=111)
+if not MODULES_DEF:
+    # Fallback de segurança se offline
+    MODULES_DEF = [
+        {"modulo": "Ômegas", "aulas": [{"ordem": "1ª", "nome": "O que são os Ômegas e Por que são Importantes?", "curriculo": True, "match": ["O QUE SAO OS OMEGAS"]}]},
+        {"modulo": "Creatinas", "aulas": [{"ordem": "1ª", "nome": "O que é Creatina e Por que é Importante?", "curriculo": True, "match": ["O QUE E CREATINA"]}]}
+    ]
 
 # Set of all lesson match patterns
 ALL_NUTRI_PATTERNS = []
