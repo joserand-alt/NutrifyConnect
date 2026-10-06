@@ -436,6 +436,7 @@ footer{padding:30px 0 40px;color:var(--muted2);font-size:11.5px;text-align:cente
 .report-table tr:hover { background: #FAFDFB; }
 
 .print-header { display: none; }
+.pdf-only-block { display: none !important; }
 
 /* REGRAS ESTITAS PARA GERAÇÃO DE RELATÓRIO PDF (Ctrl+P / Imprimir) */
 @media print {
@@ -623,6 +624,14 @@ footer{padding:30px 0 40px;color:var(--muted2);font-size:11.5px;text-align:cente
     color: #697871 !important;
     margin-top: 2px !important;
     line-height: 1.2 !important;
+  }
+
+  /* BLOCO EXCLUSIVO DO PDF (LISTA NOMINAL DE ALUNOS) */
+  .pdf-only-block {
+    display: block !important;
+    page-break-before: always !important;
+    break-before: always !important;
+    margin-top: 14px !important;
   }
 
   /* TABELAS NO PDF */
@@ -813,6 +822,28 @@ footer{padding:30px 0 40px;color:var(--muted2);font-size:11.5px;text-align:cente
         Alunos <b>Engajados/Ativos</b> mantém histórico de acesso recente ou módulos 100% concluídos. 
         Alunos <b>Em Risco</b> apresentaram quebra na cadência habitual de consumo. 
         Alunos <b>Abandonos</b> não registram atividade há mais de 30 dias após início, e <b>Nunca Acessaram</b> possuem conta liberada porém sem registro de login até o momento.
+      </div>
+    </div>
+
+    <!-- 5. BLOCO EXCLUSIVO DO PDF: LISTA NOMINAL DE ALUNOS COM STATUS E ÚLTIMO ACESSO -->
+    <div class="card pdf-only-block">
+      <div class="mini-title" style="display:flex; align-items:center; gap:8px;">
+        <span style="color:var(--emerald)">●</span> Relação de Alunos · Status de Engajamento &amp; Último Acesso
+      </div>
+      <div class="mini-sub">Detalhamento nominal completo de todos os colaboradores matriculados (A–Z)</div>
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th style="width:34%;">Aluno</th>
+              <th style="width:22%;">Curso</th>
+              <th style="width:18%; text-align:center;">Status de Engajamento</th>
+              <th style="width:12%; text-align:center;">Progresso</th>
+              <th style="width:14%; text-align:right;">Último Acesso</th>
+            </tr>
+          </thead>
+          <tbody id="rep-tbody-alunos-pdf"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -1359,6 +1390,38 @@ function renderResumo() {
                     <div class="pct-txt">${pctNum.toFixed(0)}%</div>
                   </div>
                 </td>
+              </tr>
+            `;
+        }).join('');
+    }
+
+    // 4. Relação Nominal de Alunos com Status e Último Acesso (Exclusiva para o PDF)
+    if ($('#rep-tbody-alunos-pdf')) {
+        const sortedStudents = [...students].sort((a, b) => (a.nome || '').localeCompare(b.nome || '', 'pt-BR'));
+        $('#rep-tbody-alunos-pdf').innerHTML = sortedStudents.map(s => {
+            const st = STATUS[s.status] || { cls: 'b-login' };
+            const na = !s.acessou;
+            const ultimo = na 
+                ? '<span style="color:var(--coral); font-weight:600;">Nunca acessou</span>' 
+                : `<span style="font-weight:600; color:var(--ink);">${s.last_fmt || '-'}</span>`;
+            const prog = na 
+                ? '<span style="color:var(--muted2);">-</span>' 
+                : `<span style="font-weight:600;">${s.pct_mods || 0}%</span> <span style="font-size:10px; color:var(--muted);">(${s.mods_concluidos || 0}/${s.total_mods || 0})</span>`;
+            
+            return `
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--ink); font-size:11.5px;">${s.nome || '-'}</div>
+                  <div style="font-size:10px; color:var(--muted); margin-top:1px;">${s.email || ''}</div>
+                </td>
+                <td style="font-size:11px; color:var(--muted);">${s.curso || 'Nutrify Connect'}</td>
+                <td style="text-align:center;">
+                  <span class="badge ${st.cls}" style="font-size:10px; padding:2px 8px; display:inline-flex;">
+                    <span class="b-dot"></span>${s.status}
+                  </span>
+                </td>
+                <td style="text-align:center; font-family:var(--disp); font-size:11px;">${prog}</td>
+                <td style="text-align:right; font-family:var(--disp); font-size:11px; white-space:nowrap;">${ultimo}</td>
               </tr>
             `;
         }).join('');
