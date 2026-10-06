@@ -28,8 +28,8 @@
         "nome": "DHA 1000",
         "curriculo": true,
         "match": [
-          "DHA 1000",
-          "DHA1000"
+          "DHA1000",
+          "DHA 1000"
         ]
       },
       {
@@ -72,10 +72,10 @@
         "nome": "100% Creatine - Monoidratada Pura",
         "curriculo": true,
         "match": [
-          "CREATINE 300G",
-          "100% CREATINE",
           "100% CREATINE - MONOIDRATADA PURA",
-          "CREATINE 600G"
+          "100% CREATINE",
+          "CREATINE 600G",
+          "CREATINE 300G"
         ]
       },
       {
@@ -136,8 +136,8 @@
         "nome": "Glutamina",
         "curriculo": true,
         "match": [
-          "GLUTAMINA",
-          "GLUTAMINE"
+          "GLUTAMINE",
+          "GLUTAMINA"
         ]
       },
       {
@@ -171,8 +171,8 @@
         "nome": "Vit B Complex",
         "curriculo": true,
         "match": [
-          "VITB COMPLEX",
-          "VIT B COMPLEX"
+          "VIT B COMPLEX",
+          "VITB COMPLEX"
         ]
       },
       {
@@ -264,24 +264,6 @@
         ]
       },
       {
-        "id": 100380,
-        "ordem": "4ª",
-        "nome": "Collagen II",
-        "curriculo": true,
-        "match": [
-          "COLLAGEN II"
-        ]
-      },
-      {
-        "id": 100381,
-        "ordem": "5ª",
-        "nome": "ArtroAid",
-        "curriculo": true,
-        "match": [
-          "ARTROAID"
-        ]
-      },
-      {
         "id": 100382,
         "ordem": "6ª",
         "nome": "Collagen Drink",
@@ -323,8 +305,8 @@
         "nome": "Pure ox",
         "curriculo": true,
         "match": [
-          "PUREOX",
-          "PURE OX"
+          "PURE OX",
+          "PUREOX"
         ]
       }
     ]
@@ -359,15 +341,6 @@
         "curriculo": true,
         "match": [
           "NATURAL SLEEP"
-        ]
-      },
-      {
-        "id": 100623,
-        "ordem": "4ª",
-        "nome": "Dicas de Venda",
-        "curriculo": true,
-        "match": [
-          "DICAS DE VENDA"
         ]
       }
     ]
@@ -438,76 +411,6 @@
         "curriculo": true,
         "match": [
           "DICAS DE VENDAS"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 1021,
-    "modulo": "Institucional Nutrify",
-    "ordem": 11,
-    "aulas": [
-      {
-        "id": 100154,
-        "ordem": "1ª",
-        "nome": "História da Nutrify e Grupo BRG",
-        "curriculo": true,
-        "match": [
-          "HISTORIA DA NUTRIFY E GRUPO BRG"
-        ]
-      },
-      {
-        "id": 100155,
-        "ordem": "2ª",
-        "nome": "Missão, Visão e Valores (Nutrify e BRG)",
-        "curriculo": true,
-        "match": [
-          "MISSAO, VISAO E VALORES (NUTRIFY E BRG)"
-        ]
-      },
-      {
-        "id": 100156,
-        "ordem": "3ª",
-        "nome": "Essência e Branding",
-        "curriculo": true,
-        "match": [
-          "ESSENCIA E BRANDING"
-        ]
-      },
-      {
-        "id": 100250,
-        "ordem": "4ª",
-        "nome": "Público-alvo e posicionamento",
-        "curriculo": true,
-        "match": [
-          "PUBLICO-ALVO E POSICIONAMENTO"
-        ]
-      },
-      {
-        "id": 100251,
-        "ordem": "5ª",
-        "nome": "Estrutura Fabril: CT House, DACON, Fazendinha, GR x GLP",
-        "curriculo": true,
-        "match": [
-          "ESTRUTURA FABRIL: CT HOUSE, DACON, FAZENDINHA, GR X GLP"
-        ]
-      },
-      {
-        "id": 100252,
-        "ordem": "6ª",
-        "nome": "Ações Sociais (Saúde em Dia, Social Idoso, Academia de Música)",
-        "curriculo": true,
-        "match": [
-          "ACOES SOCIAIS (SAUDE EM DIA, SOCIAL IDOSO, ACADEMIA DE MUSICA)"
-        ]
-      },
-      {
-        "id": 100253,
-        "ordem": "7ª",
-        "nome": "Vídeos institucionais das três marcas e vídeo \"40 anos BRG\"",
-        "curriculo": true,
-        "match": [
-          "VIDEOS INSTITUCIONAIS DAS TRES MARCAS E VIDEO \"40 ANOS BRG\""
         ]
       }
     ]

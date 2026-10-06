@@ -35,6 +35,10 @@ def fetch_curriculum_from_api(course_id=111):
             
         curriculum = []
         for m in raw_mods:
+            # FILTRO: Apenas módulos com status ATIVO na API
+            if not m.get('ativo'):
+                continue
+                
             mid = m.get('id')
             mnome = str(m.get('nome') or f"Módulo {mid}").strip()
             mord = m.get('ordem', 1)
@@ -51,6 +55,9 @@ def fetch_curriculum_from_api(course_id=111):
                 
             aulas_list = []
             for a in raw_aulas:
+                # FILTRO: Apenas aulas com status ATIVO na API
+                if not a.get('ativo'):
+                    continue
                 anome = str(a.get('nome') or "").strip()
                 if not anome:
                     continue
@@ -152,7 +159,7 @@ def identify_lesson(item_raw, comp_raw):
 def is_nutrify_event(item_raw, comp_raw, acao_raw):
     # Tests of Nutrify modules
     it = norm(item_raw)
-    nutri_mod_tests = {'OMEGAS', 'CREATINAS', 'AMINOCIDOS', 'AMINOACIDOS', 'VITAMINAS E MINERAIS', 'COLAGENOS', 'ANTIOXIDANTES'}
+    nutri_mod_tests = {norm(m['modulo']) for m in MODULES_DEF}.union({'AMINOCIDOS', 'AMINOACIDOS', 'PROTEINAS'})
     if 'TESTE' in norm(acao_raw) and it in nutri_mod_tests:
         return True
     return identify_lesson(item_raw, comp_raw) is not None
